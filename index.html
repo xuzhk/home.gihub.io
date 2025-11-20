@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的游戏街机厅</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #ffffff;
+            --accent-color: #bb86fc; /* 紫色霓虹 */
+            --secondary-color: #03dac6; /* 青色 */
+            --hover-shadow: 0 10px 20px rgba(187, 134, 252, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 头部标题区 */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            width: 100%;
+            background: linear-gradient(180deg, rgba(30,30,30,1) 0%, rgba(18,18,18,0) 100%);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: #888;
+            font-size: 1rem;
+        }
+
+        /* 搜索框 */
+        .search-container {
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 500px;
+            padding: 0 20px;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 30px;
+            border: 2px solid #333;
+            background-color: #2c2c2c;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(187, 134, 252, 0.3);
+        }
+
+        /* 游戏列表网格 */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        /* 游戏卡片 */
+        .game-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--hover-shadow);
+            border-color: var(--accent-color);
+        }
+
+        .card-icon {
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            background: #252525;
+        }
+
+        .card-info {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--secondary-color);
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: #aaa;
+            line-height: 1.4;
+        }
+
+        .play-btn {
+            margin-top: auto;
+            padding: 15px;
+            text-align: center;
+            background-color: #333;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: background 0.3s;
+        }
+
+        .game-card:hover .play-btn {
+            background-color: var(--accent-color);
+            color: #000;
+        }
+
+        /* 底部 */
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            color: #555;
+            font-size: 0.8rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>ARCADE CENTER</h1>
+        <p class="subtitle">选择一款游戏开始挑战</p>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="🔍 搜索游戏...">
+    </div>
+
+    <main class="game-grid" id="gameList">
+        <!-- 游戏卡片将通过 JavaScript 生成 -->
+    </main>
+
+    <footer>
+        &copy; 2023 Game Hub Local
+    </footer>
+
+    <script>
+        // ==========================================
+        // ⚠️ 请在这里修改你的游戏列表
+        // file: 你的html文件名
+        // title: 显示的标题
+        // desc: 简短介绍
+        // icon: 可以是emoji，也可以改为图片链接
+        // ==========================================
+        const games = [
+            {
+                file: "jump.html",
+                title: "跳跃小游戏",
+                desc: "模仿 Chrome 恐龙的经典跳跃游戏，挑战高分！",
+                icon: "🦖" 
+            },
+            {
+                file: "snake.html", 
+                title: "贪吃蛇",
+                desc: "经典的贪吃蛇大作战，不要撞到墙壁哦。",
+                icon: "🐍"
+            },
+            {
+                file: "poker.html",
+                title: "德州扑克",
+                desc: "德州扑克小游戏",
+                icon: "🎴"
+            },
+            {
+                file: "breakout.html",
+                title: "打砖块",
+                desc: "控制挡板反弹小球，击碎所有砖块。",
+                icon: "🏏"
+            },
+            // 你可以复制上面的 {} 块来添加更多游戏...
+            {
+                file: "demo.html",
+                title: "示例占位符",
+                desc: "这是一个测试用的卡片，用来展示排版效果。",
+                icon: "🎮"
+            }
+        ];
+
+        const gameListContainer = document.getElementById('gameList');
+        const searchInput = document.getElementById('searchInput');
+
+        // 渲染游戏列表函数
+        function renderGames(filterText = '') {
+            gameListContainer.innerHTML = ''; // 清空当前列表
+
+            const filteredGames = games.filter(game => 
+                game.title.toLowerCase().includes(filterText.toLowerCase()) || 
+                game.desc.toLowerCase().includes(filterText.toLowerCase())
+            );
+
+            if (filteredGames.length === 0) {
+                gameListContainer.innerHTML = '<p style="color:#666; text-align:center; width:100%; grid-column: 1 / -1;">没有找到匹配的游戏</p>';
+                return;
+            }
+
+            filteredGames.forEach(game => {
+                const card = document.createElement('a');
+                card.className = 'game-card';
+                card.href = game.file;
+                card.target = "_blank"; // 在新标签页打开，如果想在当前页打开请去掉这行
+
+                // 如果 icon 是图片路径而非 emoji，可以修改 img 标签逻辑
+                const iconContent = game.icon.includes('.') ? `<img src="${game.icon}" style="width:60px">` : game.icon;
+
+                card.innerHTML = `
+                    <div class="card-icon">${iconContent}</div>
+                    <div class="card-info">
+                        <div class="card-title">${game.title}</div>
+                        <div class="card-desc">${game.desc}</div>
+                    </div>
+                    <div class="play-btn">点击开始</div>
+                `;
+
+                gameListContainer.appendChild(card);
+            });
+        }
+
+        // 初始渲染
+        renderGames();
+
+        // 搜索功能监听
+        searchInput.addEventListener('input', (e) => {
+            renderGames(e.target.value);
+        });
+
+    </script>
+</body>
+</html>
